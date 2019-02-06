@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:27:56 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/05 15:48:04 by thorker          ###   ########.fr       */
+/*   Updated: 2019/02/05 21:48:00 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,18 @@
 static void	init_mlx(t_frac *new)
 {
 	new->mlx_ptr = mlx_init();
-	new->win_ptr = mlx_new_window(new->mlx_ptr, WIN_WID + 200, WIN_HEI, "Fractol");
+	new->win_ptr = mlx_new_window(new->mlx_ptr, WIN_WID + 200, WIN_HEI,
+			"Fractol");
 	new->img_ptr = mlx_new_image(new->mlx_ptr, WIN_WID, WIN_HEI);
-	new->start_img = mlx_get_data_addr(new->img_ptr, &(new->bpp), &(new->size_line), &(new->endian));
+	new->start_img = mlx_get_data_addr(new->img_ptr, &(new->bpp),
+			&(new->size_line), &(new->endian));
 	new->bpp = new->bpp / 8;
 }
 
 static int	choose_frac(t_frac *new, char *str)
 {
 	int i;
-	
+
 	i = -1;
 	while (*(str + (++i)) != 0)
 		*(str + i) = ft_tolower(*(str + i));
@@ -43,7 +45,18 @@ static int	choose_frac(t_frac *new, char *str)
 	return (1);
 }
 
-t_frac	*create_struct(char *str)
+static void	ft_nullopencl(t_frac *new)
+{
+	new->device_id = 0;
+	new->error = 0;
+	new->context = 0;
+	new->command_queue = 0;
+	new->memobj = 0;
+	new->program = 0;
+	new->kernel = 0;
+}
+
+t_frac		*create_struct(char *str)
 {
 	t_frac	*new;
 
@@ -56,16 +69,8 @@ t_frac	*create_struct(char *str)
 	}
 	init_mlx(new);
 	set_start_arg(new);
-	new->x0 = START_X0;
-	new->y0 = START_Y0;
-	new->x1 = START_X1;
-	new->y1 = START_Y1;
-	new->context = 0;
-	new->command_queue = 0;
+	ft_nullopencl(new);
+	new->cpu_gpu = CL_DEVICE_TYPE_GPU;
 	new->limit = WIN_WID * WIN_HEI;
-	new->max_iter = START_ITER;
-	new->color = START_COLOR;
-	new->flag = START_FLAG;
-	new->shift = START_SHIFT;
 	return (new);
 }

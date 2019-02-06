@@ -6,13 +6,13 @@
 #    By: thorker <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 17:25:57 by thorker           #+#    #+#              #
-#    Updated: 2019/02/05 15:48:26 by thorker          ###   ########.fr        #
+#    Updated: 2019/02/05 23:07:54 by thorker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
-FLAG = 
-SRC = set_start_arg.c put_interface.c main.c create_struct.c put_img.c put_smth_n_exit.c init_opencl.c move.c hook.c 
+FLAG = -Wall -Wextra -Werror
+SRC = ft_free.c hook_mouse.c set_start_arg.c put_interface.c main.c create_struct.c put_img.c put_smth_n_exit.c init_opencl.c move.c hook.c 
 INC = -I /usr/local/include -I libft/
 LIB = -L /usr/local/lib -lmlx -L libft/ -lft
 FRWR = -framework OpenGL -framework OpenCL -framework AppKit

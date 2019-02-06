@@ -1,4 +1,4 @@
-static int get_color(int iter, int max_iter, int color, int shift)
+static int get_color(int iter, int max_iter, int color, int shift, int n)
 {
 	int h;
 	int v1;
@@ -9,7 +9,8 @@ static int get_color(int iter, int max_iter, int color, int shift)
 
 	if (iter == max_iter)
 		return (0);
-	iter = ((iter + shift) * 9) % 255;
+	if (color == 0)
+		iter = ((iter + shift) * n) % 255;
 	h = (iter / 60) % 6;
 	v1 = (iter) % 60 / 60 * 100;
 	v2 = 100 - v1;
@@ -35,7 +36,7 @@ static int get_color(int iter, int max_iter, int color, int shift)
 	
 }
 
-__kernel void hello(__global char* string, double x0, double y0, double x1, double y1, int max_iter, char type, int color, double my_re, double my_im, int shift)
+__kernel void fractil(__global char* string, double x0, double y0, double x1, double y1, int max_iter, char type, int color, double my_re, double my_im, int shift)
 {
 	int i;
 	int iter;
@@ -47,6 +48,8 @@ __kernel void hello(__global char* string, double x0, double y0, double x1, doub
 	double im;
 	double dx;
 	double dy;
+	int n;
+
 	i = get_global_id(0);
 	if (type == 'M')
 	{
@@ -63,6 +66,7 @@ __kernel void hello(__global char* string, double x0, double y0, double x1, doub
 			im = ex_im;
 			iter++;
 		}
+		n = 30;
 	} else if (type == 'J')
 	{
         re = x0 + ((double)(i % 1000)) / 1000 * (x1 - x0);
@@ -78,6 +82,7 @@ __kernel void hello(__global char* string, double x0, double y0, double x1, doub
             im = ex_im;
             iter++;
         }
+		n = 50;
 	} else if (type == 'N')
 	{
 		re = x0 + ((double)(i % 1000)) / 1000 * (x1 - x0);
@@ -102,7 +107,8 @@ __kernel void hello(__global char* string, double x0, double y0, double x1, doub
             im = ex_im;
             iter++;
         }
-	} else if (type == 'P')
+		n = 9;
+	} else if (type == 'S')
     {
         c_re = x0 + ((double)(i % 1000)) / 1000 * (x1 - x0);
         c_im = y1 + ((double)(i / 1000)) / 1000 * (y0 - y1);
@@ -119,6 +125,7 @@ __kernel void hello(__global char* string, double x0, double y0, double x1, doub
             im = ex_im;
             iter++;
         }
+		n = 30;
     } else if (type == 'B')
     {
         c_re = x0 + ((double)(i % 1000)) / 1000 * (x1 - x0);
@@ -137,6 +144,7 @@ __kernel void hello(__global char* string, double x0, double y0, double x1, doub
             im = ex_im;
             iter++;
         }
+		n = 30;
     }
-	((__global unsigned int*) string)[i] = get_color(iter, max_iter, color, shift);
+	((__global unsigned int*) string)[i] = get_color(iter, max_iter, color, shift, n);
 }
