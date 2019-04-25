@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 13:09:52 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/05 23:35:40 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/25 18:20:56 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,24 @@ void	put_interface4(t_frac *frac)
 			"MAX ITER: pg_");
 	mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1000, 360, 0xFFFFFF,
 			"MOVE: arrow");
+	if (frac->type == 'S')
+		mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1020, 80, 0x0000FF,
+				"Spider");
+	else
+		mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1020, 80, 0xFFFFFF,
+				"Spider");
+	if (frac->type == 'B')
+		mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1020, 100, 0x0000FF,
+				"Berningship");
+	else
+		mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1020, 100, 0xFFFFFF,
+				"Berningship");
+	mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1000, 130, 0xFFFFFF,
+			"MAX ITER:");
 }
 
 void	put_interface3(t_frac *frac)
 {
-	mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1095, 200, 0xFFFFFF,
-			ft_itoa(frac->color / 256 % 256));
-	mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1155, 200, 0xFFFFFF,
-			ft_itoa(frac->color % 256));
 	mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1035, 220, 0xFFFFFF,
 			"^     ^     ^");
 	mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1035, 220, 0xFFFFFF,
@@ -53,33 +63,33 @@ void	put_interface3(t_frac *frac)
 
 void	put_interface2(t_frac *frac)
 {
-	if (frac->type == 'S')
-		mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1020, 80, 0x0000FF,
-				"Spider");
-	else
-		mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1020, 80, 0xFFFFFF,
-				"Spider");
-	if (frac->type == 'B')
-		mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1020, 100, 0x0000FF,
-				"Berningship");
-	else
-		mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1020, 100, 0xFFFFFF,
-				"Berningship");
-	mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1000, 130, 0xFFFFFF,
-			"MAX ITER:");
+	char	*c;
+
+	c = ft_itoa(frac->max_iter);
 	mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1090, 130, 0xFFFFFF,
-			ft_itoa(frac->max_iter));
-	mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1000, 160, 0xFFFFFF,
-			"COLOR:");
-	mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1035, 180, 0xFFFFFF,
-			"R     G     B");
+			c);
+	free(c);
+	c = ft_itoa(frac->color / 256 / 256);
 	mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1035, 200, 0xFFFFFF,
-			ft_itoa(frac->color / 256 / 256));
+			c);
+	free(c);
+	c = ft_itoa(frac->color / 256 % 256);
+	mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1095, 200, 0xFFFFFF,
+			c);
+	free(c);
+	c = ft_itoa(frac->color % 256);
+	mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1155, 200, 0xFFFFFF,
+			c);
+	free(c);
 	put_interface3(frac);
 }
 
 void	put_interface(t_frac *frac)
 {
+	mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1000, 160, 0xFFFFFF,
+			"COLOR:");
+	mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1035, 180, 0xFFFFFF,
+			"R     G     B");
 	mlx_string_put(frac->mlx_ptr, frac->win_ptr, 1000, 0, 0xFFFFFF,
 			"NAME:");
 	if (frac->type == 'M')

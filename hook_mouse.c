@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 17:21:11 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/05 22:39:42 by thorker          ###   ########.fr       */
+/*   Updated: 2019/04/25 12:55:53 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,15 @@ void	ft_mouse_scroll(int key, int x, int y, t_frac *frac)
 		frac->x1 = frac->x1 - x1;
 		frac->y0 = frac->y0 - y0;
 		frac->y1 = frac->y1 + y1;
-		return ;
 	}
-	if (frac->max_iter > 1)
+	else if (key != 4 && frac->max_iter > 1)
+	{
 		frac->max_iter = frac->max_iter - frac->iter_ch;
-	frac->x0 = frac->x0 - x0;
-	frac->x1 = frac->x1 + x1;
-	frac->y0 = frac->y0 + y0;
-	frac->y1 = frac->y1 - y1;
+		frac->x0 = frac->x0 - x0;
+		frac->x1 = frac->x1 + x1;
+		frac->y0 = frac->y0 + y0;
+		frac->y1 = frac->y1 - y1;
+	}
 }
 
 int		start_frac(int x, int y, t_frac *frac)

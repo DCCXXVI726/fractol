@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 07:41:43 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/05 22:44:36 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/25 20:01:28 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	scale(t_frac *frac, int key)
 {
 	double x;
 	double y;
-
 	x = (frac->x1 - frac->x0) / 20;
 	y = (frac->y0 - frac->y1) / 20;
 	if (key == 69)

@@ -6,7 +6,7 @@
 /*   By: thorker <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 17:46:50 by thorker           #+#    #+#             */
-/*   Updated: 2019/02/05 22:26:02 by thorker          ###   ########.fr       */
+/*   Updated: 2019/03/25 18:23:01 by thorker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int			fill_color(t_frac *frac)
 	frac->error = clEnqueueReadBuffer(frac->command_queue, frac->memobj,
 			CL_TRUE, 0, frac->limit * sizeof(int), string, 0, 0, 0);
 	ft_memcpy(frac->start_img, string, frac->limit * sizeof(int));
+	free (string);
 	return (0);
 }
 
